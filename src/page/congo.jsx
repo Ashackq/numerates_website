@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { auth, storage } from "../firebaseConfig.js";
-import "./congo.css";
 
 const Certificates = () => {
   const [certificates, setCertificates] = useState([]);
@@ -10,20 +9,19 @@ const Certificates = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const email = user.email;
-        const [teamName,] = email.split('@');
+        const [teamName] = email.split("@");
         setUserTeamName(teamName);
         console.log(teamName);
-        const certificatesRef = storage.ref(`certificates/${teamName}`); 
+        const certificatesRef = storage.ref(`certificates/${teamName}`);
 
         certificatesRef.listAll().then((result) => {
-          const urls = [];
-          
-          const downloadURLPromises = result.items.map((item) => item.getDownloadURL());
-          
+          const downloadURLPromises = result.items.map((item) =>
+            item.getDownloadURL()
+          );
+
           Promise.all(downloadURLPromises)
             .then((downloadURLs) => {
-              urls.push(...downloadURLs);
-              setCertificates(urls);
+              setCertificates(downloadURLs);
             })
             .catch((error) => {
               console.error("Error fetching download URLs:", error);
@@ -36,18 +34,28 @@ const Certificates = () => {
   }, []);
 
   return (
-    <div>
-      <div className="congratulations">
-        <h2>Congratulations {userTeamName ? userTeamName.toUpperCase() : ''} Team!</h2>
-        <p>You have successfully reached your destination.</p>
-        <p>Enjoy your achievement!</p>
+    <div className="p-4 space-y-6">
+      <div className="text-center bg-gray-100 p-6 rounded-lg shadow-md">
+        <h2 className="text-xl font-bold text-gray-800">
+          Congratulations {userTeamName ? userTeamName.toUpperCase() : ""} Team!
+        </h2>
+        <p className="text-gray-600 mt-2">
+          You have successfully reached your destination.
+        </p>
+        <p className="text-gray-600">Enjoy your achievement!</p>
       </div>
-      <div className='certificates'>
-        <h1>Certificates</h1>
-        <ul>
+
+      <div className="bg-teal-700 text-white p-6 rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold mb-4">Certificates</h1>
+        <ul className="space-y-2">
           {certificates.map((certificate, index) => (
             <li key={index}>
-              <a href={certificate} target="_blank" rel="noopener noreferrer">
+              <a
+                href={certificate}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-300 hover:underline"
+              >
                 Certificate {index + 1}
               </a>
             </li>

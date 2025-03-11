@@ -4,12 +4,11 @@
   overflow-y: scroll;
 }
 
-.App::-webkit-scrollbar{
-    display: none;
+.App::-webkit-scrollbar {
+  display: none;
 }
 
-.App{
-  -ms-overflow-style: none; 
+.App {
+  -ms-overflow-style: none;
   scrollbar-width: none;
-  
 }

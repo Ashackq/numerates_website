@@ -1,30 +1,17 @@
-import React, { useState } from "react";
-import "./footer.css";
-import linke from "../../ass/in.png";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const [hoveredIndex, setHovedIndex] = useState(null);
-
-  const links = ["About", "Events", "Teams", "Con", "Fut"];
-
   const devs = [
     {
       id: 1,
-      name: "Tanmay Gadge",
+      name: "Akash Patel",
       role: "Web Developer",
-      photo: "tanmaygadge.jpg",
-      linkedIn: "https://www.linkedin.com/in/tanmay-gadge-377b9625b/",
+      photo: "akashpatel.jpg",
+      linkedIn: "https://www.linkedin.com/in/akash-patel-8a6107237/",
     },
     {
       id: 2,
-      name: "Akash Patel",
-      role: "Web Developer",
-      photo: "sample1.jpg",
-      linkedIn: "",
-    },
-    {
-      id: 3,
       name: "Could Be You",
       role: "..",
       photo: "sample2.jpg",
@@ -34,93 +21,100 @@ const Footer = () => {
   ];
 
   return (
-    <>
-      <footer className="footer">
-        <div className="team">
-          <h1 className="footer-heading">Our Developers: </h1>
-          <div className="team-members">
-            {devs.map((member) => (
-              <div key={member.name} className="team-member">
-                <div className="img-container">
-                  <img
-                    src={require(`./photos/${member.photo}`)}
-                    alt={member.name}
-                  />
-                  <div className="linkedin-cover">
-                    <img id="linke" src={linke} alt="loo" />
-                    <a
-                      href={member.linkedIn}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      LinkedIn
-                    </a>
-                  </div>
+    <footer className="bg-black text-white py-10 px-5 w-full">
+      {/* Developers Section */}
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-4">Our Developers:</h1>
+        <div className="flex justify-center gap-6 flex-wrap">
+          {devs.map((member) => (
+            <div key={member.id} className="text-center">
+              <div className="relative">
+                <img
+                  src={require(`../team/photos/${member.photo}`)}
+                  alt={member.name}
+                  loading="lazy"
+                  className="w-40 h-40 rounded-lg object-cover"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition duration-300 flex items-center justify-center">
+                  <a
+                    href={member.linkedIn}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-600"
+                  >
+                    LinkedIn
+                  </a>
                 </div>
-                <h2>{member.name}</h2>
-                <p>{member.role}</p>
               </div>
-            ))}
-          </div>
+              <h2 className="mt-2 text-lg">{member.name}</h2>
+              <p className="text-sm text-gray-400">{member.role}</p>
+            </div>
+          ))}
         </div>
+      </div>
 
-        <div className="footer-links">
-          <p>
-            <Link to="/About">About</Link>
-          </p>
-          <p>
-            <Link to="/Event">Events</Link>
-          </p>
-          <p>
-            <Link to="/Teams">Teams</Link>
-          </p>
-          <p>
-            <Link to="/Con">Let's Connect</Link>
-          </p>
-          <p>
-            <Link to="/Fut">Future Plans</Link>
-          </p>
-        </div>
-        <div className="college-site">
-          <Link to={"https://www.mitwpu.edu.in"} target="_blank">
-            MIT - World Peace University
+      {/* Links Section */}
+      <div className="flex justify-center gap-4 my-6">
+        {["About", "Events", "Teams", "Con", "Fut"].map((link) => (
+          <Link
+            key={link}
+            to={`/${link}`}
+            className="hover:underline hover:text-blue-400"
+          >
+            {link}
+          </Link>
+        ))}
+      </div>
+
+      {/* University Link */}
+      <div className="text-center my-4">
+        <Link
+          to="https://www.mitwpu.edu.in"
+          target="_blank"
+          className="hover:underline hover:text-blue-400"
+        >
+          MIT - World Peace University
+        </Link>
+      </div>
+
+      {/* Socials Section */}
+      <div className="text-center my-4">
+        <p className="font-semibold">Follow us on:</p>
+        <div className="flex justify-center gap-4">
+          <Link
+            to="https://www.instagram.com/mitwpunumerates/"
+            target="_blank"
+            className="flex items-center gap-2"
+          >
+            <img
+              src={require("./logos/instagram.png")}
+              alt="Instagram"
+              className="w-6 h-6"
+            />
+            Instagram
+          </Link>
+
+          <Link
+            to="https://www.linkedin.com/company/numerates-club/mycompany/"
+            target="_blank"
+            className="flex items-center gap-2"
+          >
+            <img
+              src={require("./logos/linkedin.png")}
+              alt="LinkedIn"
+              className="w-6 h-6"
+            />
+            LinkedIn
           </Link>
         </div>
-        <div className="socials" style={{ textAlign: "center" }}>
-          <p className="link-heading">Follow us on: </p>
-          <div className="insta">
-            <img src={require("./logos/instagram.png")} />
-            &nbsp;
-            <span className="insta-link">
-              <Link
-                to={"https://www.instagram.com/mitwpunumerates/"}
-                target="_blank"
-              >
-                InstaGram
-              </Link>
-            </span>
-          </div>
-          &nbsp;
-          <div className="linkedIn">
-            <img src={require("./logos/linkedin.png")} />
-            <span className="linkedIn-link">
-              <Link
-                to={
-                  "https://www.linkedin.com/company/numerates-club/mycompany/"
-                }
-                target="_blank"
-              >
-                &nbsp;LinkedIn
-              </Link>
-            </span>
-          </div>
-        </div>
-        <div className="copyright" style={{ textAlign: "center" }}>
-          <p>© 2024 All Right Reserved</p>
-          <p>Website design and development by Numerates.</p>
-        </div>
-      </footer>
-    </>
+      </div>
+
+      {/* Copyright Section */}
+      <div className="text-center text-sm mt-8">
+        <p>© 2025 All Rights Reserved</p>
+        <p>Website design and development by Numerates.</p>
+      </div>
+    </footer>
   );
 };
 

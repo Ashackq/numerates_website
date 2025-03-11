@@ -1,69 +1,38 @@
-import React, { useState, useRef } from 'react';
-import './time.css';
-import { Link } from 'react-router-dom';
-import Confetti from 'react-confetti';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Confetti from "react-confetti";
 
 const UpcomingEventsContainer = ({ events }) => {
-  const [confetti, setConfetti] = useState([]);
-  const confettiContainerRefs = useRef([]);
+  const [showConfetti, setShowConfetti] = useState(false);
 
-  const handleMouseMove = (event, index) => {
-    const { clientX, clientY } = event;
-    const { left, top } = confettiContainerRefs.current[index].getBoundingClientRect();
-
-    const x = clientX - left;
-    const y = clientY - top;
-
-    setConfetti((prevConfetti) => ({
-      ...prevConfetti,
-      [index]: { x, y },
-    }));
+  const triggerConfetti = () => {
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 2000); // Auto-stop confetti after 2 seconds
   };
 
   return (
-    <div className="upcoming-events-container">
-      <h2>Upcoming Events</h2>
-      <div className="scroll-container">
-        {events.map((event, index) => (
-          <Link to={`./event${event.id}`} key={event.name}>
+    <div className="bg-black text-white p-8 rounded-lg shadow-md mx-auto mt-10 w-full max-w-4xl">
+      <h2 className="text-center text-3xl font-bold mb-6">Upcoming Events</h2>
+
+      <div className="overflow-y-auto max-h-[350px] space-y-4 scrollbar-hide">
+        {events.map((event) => (
+          <Link to={`./event${event.id}`} key={event.id} className="block">
             <div
-              className="event"
-              ref={(el) => (confettiContainerRefs.current[index] = el)}
-              onMouseMove={(event) => handleMouseMove(event, index)}
-              key={event.name}
-              style={{
-                background: 'linear-gradient(45deg, #CA4246 16.666%, #E16541 16.666%, #E16541 33.333%, #F18F43 33.333%, #F18F43 50%, #8B9862 50%, #8B9862 66.666%, #476098 66.666%, #476098 83.333%, #A7489B 83.333%)',
-                backgroundSize: '100%',
-                backgroundRepeat: 'repeat',
-                transition: 'background-size 0.5s ease-in', // Add transition
-              }}
-              // Add hover styles
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundSize = '650%';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundSize = '100%';
-              }}
+              className="relative p-5 bg-white text-black rounded-lg shadow-md cursor-pointer transition-transform transform hover:scale-105"
+              onMouseEnter={triggerConfetti}
             >
-              {confetti[index] && (
+              {showConfetti && (
                 <Confetti
                   width={window.innerWidth}
                   height={window.innerHeight}
                   numberOfPieces={100}
                   recycle={false}
-                  initialVelocityX={2}
-                  initialVelocityY={5}
                   gravity={0.2}
-                  style={{
-                    position: 'absolute',
-                    zIndex: -1,
-                    height: '100%',
-                    width: '100%',
-                  }}
+                  style={{ position: "absolute", zIndex: -1 }}
                 />
               )}
-              <h3>{event.name}</h3>
-              <h1>Certificates Are Out</h1>
+              <h3 className="text-lg font-semibold">{event.name}</h3>
+              <h1 className="text-blue-500 font-bold">Certificates Are Out!</h1>
             </div>
           </Link>
         ))}

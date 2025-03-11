@@ -1,31 +1,20 @@
 {
-  "name": "webw",
+  "name": "numwebsite",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@splinetool/react-spline": "^2.2.6",
-    "@splinetool/runtime": "^0.9.431",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "ammojs-typed": "^1.0.6",
-    "bootstrap": "^5.3.1",
-    "cannon-es": "^0.20.0",
-    "confetti-js": "^0.0.18",
-    "firebase": "^10.3.0",
-    "gsap": "^3.12.5",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.10.4",
-    "react-confetti": "^6.1.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.10.1",
-    "react-router-dom": "^6.15.0",
+    "firebase": "^11.4.0",
+    "gsap": "^3.12.7",
+    "react": "^19.0.0",
+    "react-confetti": "^6.4.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.3.0",
     "react-scripts": "5.0.1",
     "split-type": "^0.3.4",
-    "three": "^0.155.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -53,6 +42,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "tailwindcss": "^3.4.17"
   }
 }

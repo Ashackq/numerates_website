@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Navbar, Team, D, Footer } from "./components";
-import { A, H, E, F, C, Lth, Congo, Foot } from "./page";
-import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
-
-import "./App.css";
+import { Navbar, Team, Footer } from "./components";
+import { A, H, E, F, C, Lth, Congo } from "./page";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -13,7 +11,7 @@ const App = () => {
     window.localStorage.setItem("loggedIn", "true");
   };
   return (
-    <>
+    <div style={{ background: "#1b151f" }}>
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -23,7 +21,6 @@ const App = () => {
           <Route path="/Teams" element={<Team />} />
           <Route path="/Con" element={<C />} />
           <Route path="/Fut" element={<F />} />
-          <Route path="/Fut" element={<D />} />
           <Route
             exact
             path="/login"
@@ -33,11 +30,14 @@ const App = () => {
             path="/congo"
             element={loggedIn ? <Congo /> : <Lth handleLogin={handleLogin} />}
           />
-          {/* <Route path="/:eventId" element={<Lth handleLogin={handleLogin}/>} /> */}
+          <Route
+            path="/treasurehunt"
+            element={<Lth handleLogin={handleLogin} />}
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
-    </>
+    </div>
   );
 };
 

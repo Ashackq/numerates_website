@@ -1,12 +1,28 @@
-import React from 'react';
-import './detail.css';
+import React from "react";
 
 const Details = React.forwardRef((props, ref) => {
-
-  const { count, hfsize, heading,fds, description, hrmarl, hrmarr, pos, hrenable, spcolor, color, wordColors, marginLeft, marginRight, headingRef, descriptionRef, clipPath } = props;
+  const {
+    count,
+    hfsize,
+    heading,
+    fds,
+    description,
+    hrmarl,
+    hrmarr,
+    pos,
+    hrenable,
+    spcolor,
+    color,
+    wordColors,
+    marginLeft,
+    marginRight,
+    headingRef,
+    descriptionRef,
+    clipPath,
+  } = props;
 
   const getDescriptionWithColoredWords = () => {
-    let modifiedDescription = description || '';
+    let modifiedDescription = description || "";
 
     wordColors.forEach(({ word, scolor }) => {
       const startIndex = modifiedDescription.indexOf(word);
@@ -20,28 +36,51 @@ const Details = React.forwardRef((props, ref) => {
       }
     });
 
-    modifiedDescription = modifiedDescription.replace(/\n/g, '<br />');
+    modifiedDescription = modifiedDescription.replace(/\n/g, "<br />");
 
     return { __html: modifiedDescription };
   };
 
   const br = () => {
-    const brTags = [];
-    for (let i = 0; i < count; i++) {
-      brTags.push(<br key={i} />);
-    }
-    return brTags;
+    return Array.from({ length: count }, (_, i) => <br key={i} />);
   };
 
-
   return (
-    <div className="details-container" style={{ marginLeft: marginLeft, marginRight: marginRight, textAlign: pos }}>
+    <div
+      className={`text-center p-5 mx-[${marginLeft}] md:mx-[20px] relative text-[25px] leading-[39px]`}
+      style={{ textAlign: pos }}
+    >
+      <p
+        ref={headingRef}
+        className={`text-[${hfsize}] font-bold font-montserrat block`}
+        style={{
+          color: spcolor,
+          display: hrenable,
+          clipPath: clipPath,
+        }}
+      >
+        {heading}
+      </p>
 
-      <p ref={headingRef} className="center q" style={{ color: spcolor, fontSize: hfsize, display: hrenable, clipPath: clipPath }}>{heading}</p>
-      <hr style={{ display: hrenable, marginLeft: hrmarl, marginRight: hrmarr, borderColor: spcolor }} />
+      {hrenable && (
+        <hr
+          className="my-4 border-[1px] border-aqua mx-auto"
+          style={{
+            marginLeft: hrmarl,
+            marginRight: hrmarr,
+            borderColor: spcolor,
+          }}
+        />
+      )}
+
       {br()}
-      <br></br>
-      <p ref={descriptionRef} className="center c" style={{ color: color, fontSize:fds }} dangerouslySetInnerHTML={getDescriptionWithColoredWords()} />
+      <br />
+      <p
+        ref={descriptionRef}
+        className="font-lora text-[25px] sm:text-[16px]"
+        style={{ color, fontSize: fds }}
+        dangerouslySetInnerHTML={getDescriptionWithColoredWords()}
+      />
     </div>
   );
 });
